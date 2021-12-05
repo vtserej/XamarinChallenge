@@ -20,6 +20,9 @@ namespace XamarinChallenge.ViewModels
         private ObservableCollection<Item> _items;
         private IEnumerable<Item> _itemsCache;
 
+        private string _selectedSortOption;
+        public IEnumerable<string> SortOptions { get; }
+
         public Command LoadItemsCommand { get; }
         public Command<Item> ItemTapped { get; }
 
@@ -30,6 +33,17 @@ namespace XamarinChallenge.ViewModels
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
             ItemTapped = new Command<Item>(OnItemSelected);
+
+            SortOptions = new List<string> {Constants.SortOptionNone, Constants.SortOptionDateAsc, Constants.SortOptionDateDesc};
+
+            SelectedSortOption = Constants.SortOptionNone;
+        }
+
+        private void ClearUI()
+        {
+            SelectedSortOption = Constants.SortOptionNone;
+            SearchText = string.Empty;
+
         }
 
         async Task ExecuteLoadItemsCommand()
@@ -38,6 +52,8 @@ namespace XamarinChallenge.ViewModels
 
             try
             {
+                ClearUI();
+
                 _itemsCache = await DataStore.GetItemsAsync(true);
                 Items.Clear();
                 foreach (var item in _itemsCache)
@@ -70,6 +86,16 @@ namespace XamarinChallenge.ViewModels
             }
         }
 
+        public string SelectedSortOption
+        {
+            get => _selectedSortOption;
+            set
+            {
+                SetProperty(ref _selectedSortOption, value);
+                OnSorted(value);
+            }
+        }
+
 
         public Item SelectedItem
         {
@@ -93,8 +119,29 @@ namespace XamarinChallenge.ViewModels
 
         private void OnTextFiltered(string text)
         {
+            if (IsBusy)
+                return;
+
             var searchText = text.ToLower();
             Items = new ObservableCollection<Item>(_itemsCache.Where(item => item.Text.ToLower().Contains(searchText) || item.Description.ToLower().Contains(searchText)));
+        }
+
+        private void OnSorted(string text)
+        {
+            if (IsBusy)
+                return;
+
+            switch (text)
+            {
+                case Constants.SortOptionDateAsc:
+                    Items = new ObservableCollection<Item>(_itemsCache.OrderBy(x=> x.DateTime));
+                    break;
+                case Constants.SortOptionDateDesc:
+                    Items = new ObservableCollection<Item>(_itemsCache.OrderByDescending(x => x.DateTime));
+                    break;
+                default:
+                    break;
+            }
         }
 
         async void OnItemSelected(Item item)
