@@ -16,10 +16,10 @@
         <BoxView Style="{StaticResource HorizontalSeparator}"></BoxView>
         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
             <Label Text="Filter By" HorizontalOptions="Start"></Label>
-        <Picker ItemsSource="{Binding AccountFilters}"
+            <Picker ItemsSource="{Binding AccountFilters}"
                             SelectedItem="{Binding AccountSelectedFilter, Mode=TwoWay}"
                             HorizontalOptions="End">
-        </Picker>
+            </Picker>
         </StackLayout>
 
         <BoxView Style="{StaticResource HorizontalSeparator}"></BoxView>
@@ -32,7 +32,7 @@
                     <DataTemplate>
                         <ContentView Padding="5">
                             <Frame HasShadow="False" BorderColor="LightGray">
-                                <Grid ColumnDefinitions="50,*" RowDefinitions="*,*" Padding="5" x:DataType="model:Item">
+                                <Grid ColumnDefinitions="50,*,Auto" RowDefinitions="*,*" Padding="5" x:DataType="model:Item">
                                     <ffimageloading:CachedImage Source="{Binding ImageUrl}"
                                                                 LoadingPlaceholder="loading.png"
                                                                 Grid.RowSpan="2"
@@ -44,10 +44,16 @@
                                                 LineBreakMode="NoWrap" 
                                                 Style="{DynamicResource ListItemTextStyle}" 
                                                 FontSize="16" />
+                                    <Label Text="{Binding Converter={x:StaticResource LocalDateToStringConverter}, Path=DateTime}"
+                                               Grid.Column="2"
+                                                LineBreakMode="NoWrap" 
+                                                Style="{DynamicResource ListItemTextStyle}" 
+                                                FontSize="16" />
                                     <Label Text="{Binding Description}"
                                                 Grid.Column="1"
                                                 Grid.Row="1"
                                                 LineBreakMode="NoWrap"
+                                                Grid.ColumnSpan="2"
                                                 Style="{DynamicResource ListItemDetailTextStyle}"
                                                 FontSize="13" />
                                     <Grid.GestureRecognizers>

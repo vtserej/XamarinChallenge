@@ -10,7 +10,7 @@ namespace XamarinChallenge.Converters
         {
             if (value is DateTime dateTime)
             {
-                return dateTime.ToString("yyyy-mm-dd");
+                return dateTime.ToString("yyyy-MM-dd");
             }
 
             return null;
