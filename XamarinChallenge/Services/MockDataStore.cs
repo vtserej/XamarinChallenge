@@ -8,22 +8,43 @@ namespace XamarinChallenge.Services
 {
     public class MockDataStore : IDataStore<Item>
     {
-        readonly List<Item> items;
+        List<Item> items;
 
         private static readonly Random randomizer = new Random();
 
         private DateTime GetAnyDate() => DateTime.Now.AddDays(randomizer.Next(365) - 365);
 
+        private string GetRandomImageUrl() => "https://picsum.photos/" + randomizer.Next(300);
+
         public MockDataStore()
+        {
+            GenerateRandomItems();
+        }
+
+        private void GenerateRandomItems()
         {
             items = new List<Item>()
             {
-                new Item { Id = Guid.NewGuid().ToString(), Text = "First item", Description="This is an item description." , DateTime = GetAnyDate()},
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Second item", Description="This is an item description." , DateTime = GetAnyDate()},
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Third item", Description="This is an item description." , DateTime = GetAnyDate()},
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Fourth item", Description="This is an item description." , DateTime = GetAnyDate()},
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Fifth item", Description="This is an item description." , DateTime = GetAnyDate()},
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Sixth item", Description="This is an item description." , DateTime = GetAnyDate()}
+                new Item { Id = Guid.NewGuid().ToString(), Text = "First item",
+                    Description="Lorem ipsum dolor sit amet, consectetur adipiscing." , DateTime = GetAnyDate(), ImageUrl = GetRandomImageUrl() },
+
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Second item",
+                    Description="sed do eiusmod tempor incididunt ut labore et dolore magna." , DateTime = GetAnyDate(), ImageUrl = GetRandomImageUrl() },
+
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Third item",
+                    Description="Ut enim ad minim veniam, quis nostrud exercitation." , DateTime = GetAnyDate(), ImageUrl = GetRandomImageUrl() },
+
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Fourth item",
+                    Description="Duis aute irure dolor in reprehenderit." , DateTime = GetAnyDate(), ImageUrl = GetRandomImageUrl() },
+
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Fifth item",
+                    Description="Excepteur sint occaecat cupidatat non." , DateTime = GetAnyDate(), ImageUrl = GetRandomImageUrl() },
+
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Sixth item",
+                    Description="Lorem ipsum dolor sit amet." , DateTime = GetAnyDate(), ImageUrl = GetRandomImageUrl() },
+
+                new Item { Id = Guid.NewGuid().ToString(), Text = "Seventh item",
+                    Description="Sed ut perspiciatis unde omnis." , DateTime = GetAnyDate(), ImageUrl = GetRandomImageUrl() }
             };
         }
 

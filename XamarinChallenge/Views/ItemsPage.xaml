@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="XamarinChallenge.Views.ItemsPage"
              Title="{Binding Title}"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:local="clr-namespace:XamarinChallenge.ViewModels"  
              xmlns:model="clr-namespace:XamarinChallenge.Models"  
              x:Name="BrowseItemsPage">
@@ -11,13 +12,18 @@
       x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
       https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
     -->
-    <StackLayout>
+    <StackLayout Padding="8">
+        <BoxView Style="{StaticResource HorizontalSeparator}"></BoxView>
+        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+            <Label Text="Filter By" HorizontalOptions="Start"></Label>
         <Picker ItemsSource="{Binding AccountFilters}"
                             SelectedItem="{Binding AccountSelectedFilter, Mode=TwoWay}"
                             HorizontalOptions="End">
         </Picker>
-        <Entry Text="{Binding SearchText, Mode=TwoWay}" Placeholder="Search"></Entry>
+        </StackLayout>
+
         <BoxView Style="{StaticResource HorizontalSeparator}"></BoxView>
+        <Entry Text="{Binding SearchText, Mode=TwoWay}" Placeholder="Search"></Entry>
         <RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
             <CollectionView x:Name="ItemsListView"
                 ItemsSource="{Binding Items}"
@@ -26,25 +32,31 @@
                     <DataTemplate>
                         <ContentView Padding="5">
                             <Frame HasShadow="False" BorderColor="LightGray">
-                                <Grid ColumnDefinitions="*,*" RowDefinitions="*,*" Padding="5" x:DataType="model:Item">
-                                        <Label Text="{Binding Text}"
+                                <Grid ColumnDefinitions="50,*" RowDefinitions="*,*" Padding="5" x:DataType="model:Item">
+                                    <ffimageloading:CachedImage Source="{Binding ImageUrl}"
+                                                                LoadingPlaceholder="loading.png"
+                                                                Grid.RowSpan="2"
+                                                                WidthRequest="100" HeightRequest="100">
+
+                                    </ffimageloading:CachedImage>
+                                    <Label Text="{Binding Text}"
                                                Grid.Column="1"
                                                 LineBreakMode="NoWrap" 
                                                 Style="{DynamicResource ListItemTextStyle}" 
                                                 FontSize="16" />
-                                        <Label Text="{Binding Description}"
+                                    <Label Text="{Binding Description}"
                                                 Grid.Column="1"
                                                 Grid.Row="1"
                                                 LineBreakMode="NoWrap"
                                                 Style="{DynamicResource ListItemDetailTextStyle}"
                                                 FontSize="13" />
-                                        <Grid.GestureRecognizers>
-                                            <TapGestureRecognizer 
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer 
                                             NumberOfTapsRequired="1"
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"		
                                             CommandParameter="{Binding .}">
-                                            </TapGestureRecognizer>
-                                        </Grid.GestureRecognizers>
+                                        </TapGestureRecognizer>
+                                    </Grid.GestureRecognizers>
                                 </Grid>
                             </Frame>
                         </ContentView>

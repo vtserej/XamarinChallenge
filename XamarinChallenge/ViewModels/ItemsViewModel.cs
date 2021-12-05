@@ -94,7 +94,7 @@ namespace XamarinChallenge.ViewModels
         private void OnTextFiltered(string text)
         {
             var searchText = text.ToLower();
-            Items = new ObservableCollection<Item>(_itemsCache.Where(item => item.Text.ToLower().Contains(searchText) || item.Description.ToLower().Contains(text)));
+            Items = new ObservableCollection<Item>(_itemsCache.Where(item => item.Text.ToLower().Contains(searchText) || item.Description.ToLower().Contains(searchText)));
         }
 
         async void OnItemSelected(Item item)

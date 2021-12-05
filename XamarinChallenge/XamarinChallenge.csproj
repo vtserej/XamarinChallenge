@@ -9,10 +9,12 @@
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2244" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
     <PackageReference Include="ReactiveUI" Version="17.1.4" />
+    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="ReactiveUI" />
     <None Remove="Converters\" />
+    <None Remove="Xamarin.FFImageLoading.Forms" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Converters\" />
