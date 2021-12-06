@@ -1,6 +1,6 @@
 # XamarinChallenge
 
-This Xamarin chanllenge contains the following items
+This Xamarin challenge contains the following items
 
 1- Displays a list of items and Item's detail.  
 2- Can Sort The List by date Asc and Desc.   
