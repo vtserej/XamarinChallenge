@@ -62,7 +62,7 @@ namespace XamarinChallenge.ViewModels
                 Id = item.Id;
                 Text = item.Text;
                 Description = item.Description;
-                imageUrl = item.ImageUrl;
+                ImageUrl = item.ImageUrl;
             }
             catch (Exception)
             {

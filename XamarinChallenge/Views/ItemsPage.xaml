@@ -1,26 +1,29 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="XamarinChallenge.Views.ItemsPage"
              Title="{Binding Title}"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:local="clr-namespace:XamarinChallenge.ViewModels"
-             xmlns:behaviors="clr-namespace:XamarinChallenge.Behaviors"  
+             xmlns:behaviors="clr-namespace:XamarinChallenge.Behaviors"
              xmlns:model="clr-namespace:XamarinChallenge.Models"
-             x:DataType="local:ItemsViewModel" 
+             xmlns:effects="clr-namespace:XamarinChallenge.Controls"
+             x:DataType="local:ItemsViewModel"
              x:Name="BrowseItemsPage">
     <StackLayout Padding="8">
-        <BoxView Style="{StaticResource HorizontalSeparator}"></BoxView>
+        <BoxView Style="{StaticResource HorizontalSeparator}" />
         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-            <Label Text="Sort By" HorizontalOptions="Start" VerticalTextAlignment="Center"></Label>
+            <Label Text="Sort By" HorizontalOptions="Start" VerticalTextAlignment="Center" />
             <Picker ItemsSource="{Binding SortOptions}"
                     Title="Select a sorting option"
-                    MinimumWidthRequest="150"
                     SelectedItem="{Binding SelectedSortOption, Mode=TwoWay}"
                     HorizontalOptions="EndAndExpand">
+                <Picker.Effects>
+                    <effects:PickListEffect />
+                </Picker.Effects>
             </Picker>
         </StackLayout>
-        <BoxView Style="{StaticResource HorizontalSeparator}"></BoxView>
+        <BoxView Style="{StaticResource HorizontalSeparator}" />
         <Entry Text="{Binding SearchText, Mode=TwoWay}" Placeholder="Search (Only letters and numbers)">
             <Entry.Behaviors>
                 <behaviors:SearchEntryBehavior />
@@ -28,42 +31,41 @@
         </Entry>
         <RefreshView Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
             <CollectionView x:Name="ItemsListView"
-                ItemsSource="{Binding Items}"
-                SelectionMode="None">
+                            ItemsSource="{Binding Items}"
+                            SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <ContentView Padding="5">
                             <Frame HasShadow="False" BorderColor="LightGray">
-                                <Grid ColumnDefinitions="50,*,Auto" RowDefinitions="*,*" Padding="5" x:DataType="model:Item">
+                                <Grid ColumnDefinitions="50,*,Auto" RowDefinitions="*,*" Padding="5"
+                                      x:DataType="model:Item">
                                     <ffimageloading:CachedImage Source="{Binding ImageUrl}"
                                                                 LoadingPlaceholder="loading.png"
                                                                 Grid.RowSpan="2"
-                                                                WidthRequest="100" HeightRequest="100">
-
-                                    </ffimageloading:CachedImage>
+                                                                WidthRequest="100" HeightRequest="100" />
                                     <Label Text="{Binding Text}"
-                                               Grid.Column="1"
-                                                LineBreakMode="NoWrap" 
-                                                Style="{DynamicResource ListItemTextStyle}" 
-                                                FontSize="16" />
-                                    <Label Text="{Binding Converter={x:StaticResource LocalDateToStringConverter}, Path=DateTime}"
-                                               Grid.Column="2"
-                                                LineBreakMode="NoWrap" 
-                                                Style="{DynamicResource ListItemTextStyle}" 
-                                                FontSize="16" />
+                                           Grid.Column="1"
+                                           LineBreakMode="NoWrap"
+                                           Style="{DynamicResource ListItemTextStyle}"
+                                           FontSize="16" />
+                                    <Label
+                                        Text="{Binding Converter={x:StaticResource LocalDateToStringConverter}, Path=DateTime}"
+                                        Grid.Column="2"
+                                        LineBreakMode="NoWrap"
+                                        Style="{DynamicResource ListItemTextStyle}"
+                                        FontSize="16" />
                                     <Label Text="{Binding Description}"
-                                                Grid.Column="1"
-                                                Grid.Row="1"
-                                                LineBreakMode="NoWrap"
-                                                Grid.ColumnSpan="2"
-                                                Style="{DynamicResource ListItemDetailTextStyle}"
-                                                FontSize="13" />
+                                           Grid.Column="1"
+                                           Grid.Row="1"
+                                           LineBreakMode="NoWrap"
+                                           Grid.ColumnSpan="2"
+                                           Style="{DynamicResource ListItemDetailTextStyle}"
+                                           FontSize="13" />
                                     <Grid.GestureRecognizers>
-                                        <TapGestureRecognizer 
+                                        <TapGestureRecognizer
                                             NumberOfTapsRequired="1"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"		
-                                            CommandParameter="{Binding .}">
-                                        </TapGestureRecognizer>
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemsViewModel}}, Path=ItemTapped}"
+                                            CommandParameter="{Binding .}" />
                                     </Grid.GestureRecognizers>
                                 </Grid>
                             </Frame>

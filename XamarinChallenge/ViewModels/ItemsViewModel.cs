@@ -39,11 +39,10 @@ namespace XamarinChallenge.ViewModels
             SelectedSortOption = Constants.SortOptionNone;
         }
 
-        private void ClearUI()
+        private void ClearUi()
         {
             SelectedSortOption = Constants.SortOptionNone;
             SearchText = string.Empty;
-
         }
 
         async Task ExecuteLoadItemsCommand()
@@ -52,7 +51,7 @@ namespace XamarinChallenge.ViewModels
 
             try
             {
-                ClearUI();
+                ClearUi();
 
                 _itemsCache = await DataStore.GetItemsAsync(true);
                 Items.Clear();

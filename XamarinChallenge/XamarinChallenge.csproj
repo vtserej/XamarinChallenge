@@ -16,9 +16,11 @@
     <None Remove="Converters\" />
     <None Remove="Xamarin.FFImageLoading.Forms" />
     <None Remove="Behaviors\" />
+    <None Remove="Controls\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Converters\" />
     <Folder Include="Behaviors\" />
+    <Folder Include="Controls\" />
   </ItemGroup>
 </Project>
