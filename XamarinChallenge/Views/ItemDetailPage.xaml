@@ -2,13 +2,24 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="XamarinChallenge.Views.ItemDetailPage"
-             Title="{Binding Title}">
+             xmlns:local="clr-namespace:XamarinChallenge.ViewModels" xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"  
+             x:DataType="local:ItemDetailViewModel" 
+             Title="Item Details">
 
-    <StackLayout Spacing="20" Padding="15">
-        <Label Text="Text:" FontSize="Medium" />
-        <Label Text="{Binding Text}" FontSize="Small"/>
-        <Label Text="Description:" FontSize="Medium" />
-        <Label Text="{Binding Description}" FontSize="Small"/>
+    <StackLayout Padding="15,25,15,15" Spacing="20">
+        <Grid ColumnDefinitions="*,*" RowDefinitions="*">
+            <ContentView>
+                <ffimageloading:CachedImage Source="{Binding ImageUrl}"
+                LoadingPlaceholder="loading.png">
+            </ffimageloading:CachedImage></ContentView>
+            <StackLayout Grid.Column="1">
+                <Label Text="Text:" FontSize="Medium" />
+                <Label Text="{Binding Text}" FontSize="Small"/>
+                <Label Text="Description:" FontSize="Medium" />
+                <Label Text="{Binding Description}" FontSize="Small"/>
+            </StackLayout>
+        </Grid>
+        <Button Text="Download Image" Command="{Binding DowloadImageCommand}" WidthRequest="200"></Button>
     </StackLayout>
-    
+
 </ContentPage>
