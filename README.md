@@ -8,3 +8,4 @@ This Xamarin chanllenge contains the following items
 4- Uses a converter to format the date in the XAML.   
 5- Use a Custom renderer to modify the appearence of the item container in the list (Frame).
 6- Use a platform specific API to download an Image
+7- Use behavior to mark an Entry Red if a non alpha-numerical value was entered
