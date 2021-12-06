@@ -15,8 +15,10 @@
     <None Remove="ReactiveUI" />
     <None Remove="Converters\" />
     <None Remove="Xamarin.FFImageLoading.Forms" />
+    <None Remove="Behaviors\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Converters\" />
+    <Folder Include="Behaviors\" />
   </ItemGroup>
 </Project>
